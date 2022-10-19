@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Alumno CRUD</string>
+
+    <array name="asignaturas">
+        <item>Aplicaciones Moviles para IoT</item>
+        <item>Taller de diseño y desarrollo de Soluciones</item>
+    </array>
+</resources>
