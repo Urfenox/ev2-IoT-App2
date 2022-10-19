@@ -14,6 +14,9 @@
         android:theme="@style/Theme.Eva2IoTApp2"
         tools:targetApi="31">
         <activity
+            android:name=".AsignaturaActivity"
+            android:exported="false" />
+        <activity
             android:name=".AlumnosActivity"
             android:exported="false" />
         <activity

@@ -6,21 +6,13 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/edtNombre"
+        android:id="@+id/edtCampoUNO"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="RUT" />
+        android:layout_height="wrap_content" />
     <EditText
-        android:id="@+id/edtCorreo"
+        android:id="@+id/edtCampoDOS"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nombre" />
-
-    <Spinner
-        android:id="@+id/spnAsignatura"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/asignaturas" />
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -9,17 +9,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
-
-public class ListaAlumno extends ArrayAdapter<Alumno> {
+public class ListaAsignatura extends ArrayAdapter<Asignatura> {
     private Activity context;
-    List<Alumno> alumnos;
+    List<Asignatura> asignaturas;
 
-    public ListaAlumno(Activity context, List<Alumno> alumnos) {
-        super(context, R.layout.layout_alumno_lista, alumnos);
+    public ListaAsignatura(Activity context, List<Asignatura> asignaturas) {
+        super(context, R.layout.layout_alumno_lista, asignaturas);
         this.context = context;
-        this.alumnos = alumnos;
+        this.asignaturas = asignaturas;
     }
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -27,18 +25,18 @@ public class ListaAlumno extends ArrayAdapter<Alumno> {
          * RESUMEN:
          * Esto permite generar un objeto el cual tiene un Titulo y un Subtitulo
          * Este objeto es compatible para ser ingresado en un ListView
-         * Como resultado podras ver un objeto con un texto (el Nombre) y un subtexto (la Asignatura)
+         * Como resultado podras ver un objeto con un texto (la Asignatura) y un subtexto (RUT)
          * Esto queda bonito.
          * */
         LayoutInflater inflater = context.getLayoutInflater();
         View listViewItem = inflater.inflate(R.layout.layout_alumno_lista, null, true);
 
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.txtTitulo);
-        TextView textViewAsign = (TextView) listViewItem.findViewById(R.id.txtSubtitulo);
+        TextView textViewRUT = (TextView) listViewItem.findViewById(R.id.txtSubtitulo);
 
-        Alumno alumno = alumnos.get(position);
-        textViewName.setText(alumno.getNombre());
-        textViewAsign.setText(alumno.getRUT());
+        Asignatura asignatura = asignaturas.get(position);
+        textViewName.setText(""+asignatura.getNombre());
+        textViewRUT.setText(""+asignatura.getRUT());
 
         return listViewItem;
     }

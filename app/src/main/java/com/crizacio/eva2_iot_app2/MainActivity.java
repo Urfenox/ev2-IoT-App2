@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Declarar objetos
     EditText edt_RUT, edt_Nombre, edt_Correo;
-    Spinner spn_Asignatura;
     Button btn_Agregar;
     ListView lst_Alumnos;
     // Declara la DB y una lista para almacenar
@@ -51,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         edt_RUT = (EditText) findViewById(R.id.edtRUT);
         edt_Nombre = (EditText) findViewById(R.id.edtNombre);
         edt_Correo = (EditText) findViewById(R.id.edtCorreo);
-        spn_Asignatura = (Spinner) findViewById(R.id.spnAsignatura);
         lst_Alumnos = (ListView) findViewById(R.id.lstAlumnos);
         btn_Agregar = (Button) findViewById(R.id.btnAgregar);
 
@@ -70,11 +68,10 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 // Obtiene el alumno de la lista
                 Alumno alumno = alumnos.get(i);
-                Intent intent = new Intent(MainActivity.this, AlumnosActivity.class);
+                Intent intent = new Intent(MainActivity.this, AsignaturaActivity.class);
                 // Ingresa parametros para el envio a la nueva actividad
                 intent.putExtra(ALUMNO_RUT, alumno.getRUT());
                 intent.putExtra(ALUMNO_NOMBRE, alumno.getNombre());
-                intent.putExtra(ALUMNO_ASIGNATURA, alumno.getAsignatura());
                 // Inicia la actividad
                 startActivity(intent);
             }
@@ -126,9 +123,8 @@ public class MainActivity extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
 
         // Declarar objetos y los define (tomando los controles del nuevo layout AlertDialog)
-        final EditText _edt_Nombre = (EditText) dialogView.findViewById(R.id.edtNombre);
-        final EditText _edt_Correo = (EditText) dialogView.findViewById(R.id.edtCorreo);
-        final Spinner _edt_Asignatura = (Spinner) dialogView.findViewById(R.id.spnAsignatura);
+        final EditText _edt_Nombre = (EditText) dialogView.findViewById(R.id.edtCampoUNO);
+        final EditText _edt_Correo = (EditText) dialogView.findViewById(R.id.edtCampoDOS);
         final Button _btn_Modificar = (Button) dialogView.findViewById(R.id.btnModificar);
         final Button _btn_Eliminar = (Button) dialogView.findViewById(R.id.btnEliminar);
 
@@ -147,11 +143,10 @@ public class MainActivity extends AppCompatActivity {
                 // Define variables y las habita con los valores de los controles correspondientes
                 String nombre = _edt_Nombre.getText().toString().trim();
                 String correo = _edt_Correo.getText().toString().trim();
-                String asignatura = _edt_Asignatura.getSelectedItem().toString();
                 // Verifica que la variable no este vacia
                 if (!TextUtils.isEmpty(nombre)) {
                     // Llama a modificar los datos del alumno. RUT como identificador.
-                    updateAlumno(alumnoRUT, nombre, correo, asignatura);
+                    updateAlumno(alumnoRUT, nombre, correo);
                     // Cierra el AlertDialog
                     b.dismiss();
                 }
@@ -173,12 +168,11 @@ public class MainActivity extends AppCompatActivity {
         String rut = edt_RUT.getText().toString().trim();
         String nombre = edt_Nombre.getText().toString().trim();
         String correo = edt_Correo.getText().toString().trim();
-        String asignatura = spn_Asignatura.getSelectedItem().toString();
         // Verifica que las variables no esten vacias
-        if ((!TextUtils.isEmpty(nombre))&& (!TextUtils.isEmpty(correo)) && (!TextUtils.isEmpty(asignatura))) {
+        if ((!TextUtils.isEmpty(nombre))&& (!TextUtils.isEmpty(correo))) {
 
             // Crea un objeto Alumno
-            Alumno alumno = new Alumno(rut, nombre, correo, asignatura);
+            Alumno alumno = new Alumno(rut, nombre, correo);
             // Mete el objeto Alumno dentro de la llave RUT
             databaseAlumnos.child(rut).setValue(alumno);
             // Limpia los campos
@@ -190,11 +184,11 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Por favor indique los valores", Toast.LENGTH_LONG).show();
         }
     }
-    private boolean updateAlumno(String id, String nombre, String correo, String asignatura) {
+    private boolean updateAlumno(String id, String nombre, String correo) {
         // Toma el valor que identifica la ID (El RUT)
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Alumnos").child(id);
         // Crea un objeto Alumno
-        Alumno alumno = new Alumno(id, nombre, correo, asignatura);
+        Alumno alumno = new Alumno(id, nombre, correo);
         // Reemplaza los valores con el nuevo alumno
         dR.setValue(alumno);
         Toast.makeText(getApplicationContext(), "Alumno actualizado", Toast.LENGTH_LONG).show();

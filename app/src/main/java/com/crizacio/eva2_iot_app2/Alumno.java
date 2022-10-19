@@ -7,15 +7,13 @@ public class Alumno {
     private String rut;
     private String nombre;
     private String correo;
-    private String asignatura;
 
     public Alumno() {}
 
-    public Alumno(String rut, String nombre, String correo, String asignatura) {
+    public Alumno(String rut, String nombre, String correo) {
         this.rut = rut;
         this.nombre = nombre;
         this.correo = correo;
-        this.asignatura = asignatura;
     }
 
     public String getRUT() {
@@ -28,9 +26,5 @@ public class Alumno {
 
     public String getCorreo() {
         return correo;
-    }
-
-    public String getAsignatura() {
-        return asignatura;
     }
 }
